@@ -83,3 +83,20 @@ index = 0;
 /********************************************************************/
 // Interrupt Service Routines
 /********************************************************************/
+
+//Questions:
+//What is the purpose of the USBDM Pod? 
+/*Its main purpose is to assist software developers and engineers in debugging and programming microcontrollers and other embedded devices.
+
+// Why do we need an infinite loop when running a program in a micro-controller?
+/*An infinite loop ensures that the microcontroller keeps executing its program indefinitely, which is crucial for many real-time and continuous control applications.
+
+// When you have your code running on your board, you should see something happening. What is it?
+/*Red LED flashing
+
+//What happens if the INDEX_MAX constant define is changed from 10 to 5?
+/*shortening the time when its on and off. it goes otherwise when its longer.
+
+//What is the following line of code? DISABLE_COP();
+/*a function call in an embedded systems or microcontroller programming context. 
+/*It is likely used to disable the COP (Computer Operating Properly) watchdog timer.
