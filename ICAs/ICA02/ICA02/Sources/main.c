@@ -4,7 +4,7 @@
 // Bus Speed:     40 MHz
 // Author:        Jackelyn De Jesus
 // Details:       A more detailed explanation of the program is entered here               
-// Date:          January 17,2024
+// Date:          January 19,2024
 // Revision History :
 //  each revision will have a date + desc. of changes
 
@@ -22,8 +22,8 @@
 /********************************************************************/
 //Defines
 /********************************************************************/
-void RED (char bOn);
-void GREEN (char bOn);
+void RED (unsigned int bOn);
+void GREEN (unsigned int bOn);
 /********************************************************************/
 // Local Prototypes
 /********************************************************************/
@@ -59,10 +59,10 @@ void main(void)
 
   for (;;)
   {
-    //run program loop count for RED anf GREEN LED
+    //run program loop count for RED and GREEN LED
     ++uiMainLoopCount;
-    RED(uiMainLoopCount < 0x1000);
-    GREEN(uiMainLoopCount >= 0x1000);
+    RED(uiMainLoopCount);
+    GREEN(uiMainLoopCount);
 
   }                   
 }
@@ -70,16 +70,16 @@ void main(void)
 /********************************************************************/
 // Functions
 /********************************************************************/
-void RED(char bOn){ //change the C# boolean expression to C
-  if (bOn)
-  PT1AD1 |= (byte)(((unsigned char)1 << (7))); //turn on RED LED
+void RED(unsigned int bOn){ //change the C# boolean expression to C
+  if (bOn < 0x1000)
+  PT1AD1 |= (0x80); //turn on RED LED
   else{
     PT1AD1 &= 0x7F; //turn off RED LED
   }
 }
 
-void GREEN(char bOn){ //change the C# boolean expression to C
-  if (bOn)
+void GREEN(unsigned int bOn){ //change the C# boolean expression to C
+  if (bOn >= 0x1000)
   PT1AD1 |= 0x20; //turn on GREEN LED
   else{
     PT1AD1 &= 0b11011111; //turn off GREEN LED
