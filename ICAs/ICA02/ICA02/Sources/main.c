@@ -4,7 +4,7 @@
 // Bus Speed:     40 MHz
 // Author:        Jackelyn De Jesus
 // Details:       A more detailed explanation of the program is entered here               
-// Date:          January 19,2024
+// Date:          January 19, 2024
 // Revision History :
 //  each revision will have a date + desc. of changes
 
