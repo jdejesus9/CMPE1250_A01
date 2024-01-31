@@ -1,5 +1,5 @@
 *** EVALUATION ***
-PROGRAM "C:\Users\jdejesus9\OneDrive - NAIT\Documents\CMPE1250 A01\CMPE1250_A01\ICAs\ICA01\ICA01\bin\Project.abs"
+PROGRAM "C:\Users\jdejesus9\OneDrive - NAIT\Documents\Root Folder\CMPE1250_A01\ICAs\ICA01\ICA01\bin\Project.abs"
 
 *********************************************************************************************
 TARGET SECTION
@@ -22,9 +22,8 @@ STARTUP SECTION
 Entry point: 0xC029 (_Startup)
 _startupData is allocated at 0xC031 and uses 6 Bytes
 extern struct _tagStartup {
-  unsigned nofZeroOut     1
-  _Range   pZeroOut       0x2100     4
-  _Copy    *toCopyDownBeg 0xC08B
+  unsigned nofZeroOut     0
+  _Copy    *toCopyDownBeg 0xC064
 } _startupData;
 
 *********************************************************************************************
@@ -33,8 +32,8 @@ Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
 .init                             49     R     0xC000     0xC030   ROM_C000
 .startData                        34     R     0xC031     0xC052   ROM_C000
-.text                             56     R     0xC053     0xC08A   ROM_C000
-.copy                              2     R     0xC08B     0xC08C   ROM_C000
+.text                             17     R     0xC053     0xC063   ROM_C000
+.copy                              2     R     0xC064     0xC065   ROM_C000
 .stack                           256   R/W     0x2000     0x20FF   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
@@ -683,12 +682,11 @@ Section Name                    Size  Type     From       To       Segment
 .abs_section_3aa                   2   N/I      0x3AA      0x3AB   .absSeg644
 .abs_section_3ac                   2   N/I      0x3AC      0x3AD   .absSeg645
 .abs_section_3ae                   2   N/I      0x3AE      0x3AF   .absSeg646
-.common                            4   R/W     0x2100     0x2103   RAM
 .vectSeg647_vect                   2     R     0xFFFE     0xFFFF   .vectSeg647
 
 Summary of section sizes per section type:
-READ_ONLY (R):          8F (dec:      143)
-READ_WRITE (R/W):      104 (dec:      260)
+READ_ONLY (R):          68 (dec:      104)
+READ_WRITE (R/W):      100 (dec:      256)
 NO_INIT (N/I):         300 (dec:      768)
 
 *********************************************************************************************
@@ -1294,7 +1292,7 @@ MODULE:                 -- mc9s12xdp512.c.o --
      _CAN3RXTSR                                 22E       2       2       0   .abs_section_22e
      _CAN3TXTSR                                 23E       2       2       0   .abs_section_23e
      _PT01AD1                                   278       2       2       3   .abs_section_278
-     _DDR01AD1                                  27A       2       2       1   .abs_section_27a
+     _DDR01AD1                                  27A       2       2       0   .abs_section_27a
      _RDR01AD1                                  27C       2       2       0   .abs_section_27c
      _PER01AD1                                  27E       2       2       0   .abs_section_27e
      _CAN4RXTSR                                 2AE       2       2       0   .abs_section_2ae
@@ -1353,10 +1351,8 @@ MODULE:                 -- mc9s12xdp512.c.o --
      _XGR7                                      3AE       2       2       0   .abs_section_3ae
 MODULE:                 -- main.c.o --
 - PROCEDURES:
-     main                                      C053      38      56       1   .text       
+     main                                      C053      11      17       1   .text       
 - VARIABLES:
-     counter                                   2100       2       2       3   .common     
-     index                                     2102       2       2       4   .common     
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
      Init                                      C000      29      41       1   .init       
@@ -1371,7 +1367,7 @@ MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   mc9s12xdp512.c.o                           768      0      0
-  main.c.o                                     4     56      0
+  main.c.o                                     0     17      0
   Start12.c.o                                  0     49      0
   other                                      256     36      2
 
@@ -2676,8 +2672,6 @@ SECTION: ".abs_section_3ac"
   _XGR6 
 SECTION: ".abs_section_3ae"
   _XGR7 
-SECTION: ".common"
-  counter index 
 
 *********************************************************************************************
 OBJECT LIST SORTED BY ADDRESS
@@ -3188,7 +3182,7 @@ OBJECT LIST SORTED BY ADDRESS
      _RDR1AD0                                   275       1       1       0   .abs_section_275
      _PER1AD0                                   277       1       1       0   .abs_section_277
      _PT01AD1                                   278       2       2       3   .abs_section_278
-     _DDR01AD1                                  27A       2       2       1   .abs_section_27a
+     _DDR01AD1                                  27A       2       2       0   .abs_section_27a
      _RDR01AD1                                  27C       2       2       0   .abs_section_27c
      _PER01AD1                                  27E       2       2       0   .abs_section_27e
      _CAN4CTL0                                  280       1       1       0   .abs_section_280
@@ -3330,20 +3324,21 @@ OBJECT LIST SORTED BY ADDRESS
      _XGR5                                      3AA       2       2       0   .abs_section_3aa
      _XGR6                                      3AC       2       2       0   .abs_section_3ac
      _XGR7                                      3AE       2       2       0   .abs_section_3ae
-     counter                                   2100       2       2       3   .common     
-     index                                     2102       2       2       4   .common     
      Init                                      C000      29      41       1   .init       
      _Startup                                  C029       8       8       0   .init       
-     main                                      C053      38      56       1   .text       
+     main                                      C053      11      17       1   .text       
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
 ---------------------------------------------------------------------------------------------
+NOT USED VARIABLES
+main.c.o:
+  counter index 
 
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xC08B ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC064 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -3352,7 +3347,7 @@ OBJECT-DEPENDENCIES SECTION
 ---------------------------------------------------------------------------------------------
 Init                      USES _startupData 
 _Startup                  USES __SEG_END_SSTACK Init main 
-main                      USES _PT01AD1 _DDR01AD1 counter index 
+main                      USES _PT01AD1 
 
 *********************************************************************************************
 DEPENDENCY TREE
@@ -3373,6 +3368,6 @@ STATISTIC SECTION
 
 ExeFile:
 --------
-Number of blocks to be downloaded: 4
-Total size of all blocks to be downloaded: 143
+Number of blocks to be downloaded: 5
+Total size of all blocks to be downloaded: 104
 
