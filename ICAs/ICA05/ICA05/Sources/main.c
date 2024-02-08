@@ -16,6 +16,8 @@
 #include <hidef.h>      /* common defines and macros */
 #include "derivative.h" /* derivative-specific definitions */
 
+#include "sw_led.h"
+
 //Other system includes or your includes go here
 //#include <stdlib.h>
 //#include <stdio.h>
@@ -28,10 +30,14 @@
 /********************************************************************/
 // Local Prototypes
 /********************************************************************/
+void TURN_ON(char LED);
+void TURN_OFF(char LED);
+void TOGGLE(char LED);
 
 /********************************************************************/
 // Global Variables
 /********************************************************************/
+unsigned int i=0;
 
 /********************************************************************/
 // Constants
@@ -51,7 +57,7 @@ void main(void)
 /********************************************************************/
   // one-time initializations
 /********************************************************************/
-
+SWL_Init();
 
 /********************************************************************/
   // main program loop
@@ -59,6 +65,31 @@ void main(void)
 
   for (;;)
   {
+    //Tier 1
+    if(SWL_Pushed(SWL_LEFT))//TURN_ON(RED_LED)
+    {
+      SWL_ON(SWL_RED);
+    }
+    else  //TURN_OFF(RED_LED)
+    {
+      SWL_OFF(SWL_RED); 
+    }
+    if(SWL_Pushed(SWL_CTR)) //TURN_ON(YELLOW_LED)
+    {
+      SWL_ON(SWL_YELLOW);
+    }
+    else  //TURN_ON(RED_YELLOW)
+    {
+      SWL_OFF(SWL_YELLOW); 
+    }
+    if(SWL_Pushed(SWL_RIGHT)) //TURN_ON(GREEN_LED)
+    {
+      SWL_ON(SWL_GREEN);
+    }
+    else  //TURN_ON(GREEN_LED)
+    {
+      SWL_OFF(SWL_GREEN); 
+    }
 
   }                   
 }
