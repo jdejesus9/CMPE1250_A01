@@ -122,9 +122,35 @@ SWL_Init();
     */
 
     //Tier 3
+    if(SWL_Pushed(SWL_LEFT))//TURN_ON(RED_LED)
+    {
+      SWL_ON(SWL_RED);
+      SWL_OFF(SWL_YELLOW);
+    }
+    if(SWL_Pushed(SWL_CTR)) //TURN_ON(YELLOW_LED)
+    {
+      SWL_ON(SWL_YELLOW);
+      SWL_OFF(SWL_GREEN);
+    }
+
+    if(SWL_Pushed(SWL_RIGHT)) //TURN_ON(GREEN_LED)
+    {
+      SWL_ON(SWL_GREEN);
+       SWL_OFF(SWL_RED);
+    }
     
-
-
+    else if (SWL_Pushed(SWL_UP))
+    {
+      SWL_OFF(SWL_RED);
+      SWL_OFF(SWL_YELLOW);
+      SWL_OFF(SWL_GREEN);
+    }
+    else if (SWL_Pushed(SWL_DOWN))
+    {
+      SWL_OFF(SWL_RED);
+      SWL_OFF(SWL_YELLOW);
+      SWL_OFF(SWL_GREEN);
+    }
 
   }                   
 }
