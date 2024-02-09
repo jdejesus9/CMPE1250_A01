@@ -33,6 +33,7 @@
 void TURN_ON(char LED);
 void TURN_OFF(char LED);
 void TOGGLE(char LED);
+int GetCount(void);
 
 /********************************************************************/
 // Global Variables
@@ -139,17 +140,13 @@ SWL_Init();
        SWL_OFF(SWL_RED);
     }
     
-    else if (SWL_Pushed(SWL_UP))
+    if (SWL_Pushed(SWL_UP))
     {
-      SWL_OFF(SWL_RED);
-      SWL_OFF(SWL_YELLOW);
-      SWL_OFF(SWL_GREEN);
+      SWL_OFF(SWL_ALL);
     }
-    else if (SWL_Pushed(SWL_DOWN))
+    if (SWL_Pushed(SWL_DOWN))
     {
-      SWL_OFF(SWL_RED);
-      SWL_OFF(SWL_YELLOW);
-      SWL_OFF(SWL_GREEN);
+      SWL_OFF(SWL_ALL);
     }
 
   }                   
@@ -158,7 +155,18 @@ SWL_Init();
 /********************************************************************/
 // Functions
 /********************************************************************/
+int GetCount(void){
+  int i = 0;
+  if(SWL_Pushed(SWL_RED)>0) i++;
+  return i;
 
+  if(SWL_Pushed(SWL_GREEN)>0) i++;
+  return i;
+
+  if(SWL_Pushed(SWL_YELLOW)>0) i++;
+  return i;
+
+}
 /********************************************************************/
 // Interrupt Service Routines
 /********************************************************************/
