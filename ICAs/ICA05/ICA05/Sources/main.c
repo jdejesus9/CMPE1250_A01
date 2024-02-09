@@ -66,6 +66,7 @@ SWL_Init();
   for (;;)
   {
     //Tier 1
+    /*
     if(SWL_Pushed(SWL_LEFT))//TURN_ON(RED_LED)
     {
       SWL_ON(SWL_RED);
@@ -89,7 +90,41 @@ SWL_Init();
     else  //TURN_ON(GREEN_LED)
     {
       SWL_OFF(SWL_GREEN); 
+    } 
+    */
+
+    //Tier 2
+    /*
+    if(SWL_Pushed(SWL_LEFT))//TURN_ON(RED_LED)
+    {
+      SWL_ON(SWL_RED);
     }
+    
+    if(SWL_Pushed(SWL_CTR)) //TURN_ON(YELLOW_LED)
+    {
+      SWL_ON(SWL_YELLOW);
+    }
+    
+    if(SWL_Pushed(SWL_RIGHT)) //TURN_ON(GREEN_LED)
+    {
+      SWL_ON(SWL_GREEN);
+    }
+
+    if(SWL_Pushed(SWL_UP))  //TURN_OFF(LED)
+    {
+      SWL_OFF(SWL_ALL);
+    }
+
+    if(SWL_Pushed(SWL_DOWN))  //TURN_OFF(LED)
+    {
+      SWL_OFF(SWL_ALL);
+    }
+    */
+
+    //Tier 3
+    
+
+
 
   }                   
 }
