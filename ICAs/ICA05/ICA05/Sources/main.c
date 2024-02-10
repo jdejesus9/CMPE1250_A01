@@ -123,31 +123,66 @@ SWL_Init();
     */
 
     //Tier 3
-    if(SWL_Pushed(SWL_LEFT))//TURN_ON(RED_LED)
-    {
-      SWL_ON(SWL_RED);
-      SWL_OFF(SWL_YELLOW);
-    }
-    if(SWL_Pushed(SWL_CTR)) //TURN_ON(YELLOW_LED)
-    {
-      SWL_ON(SWL_YELLOW);
-      SWL_OFF(SWL_GREEN);
-    }
+    // if(SWL_Pushed(SWL_LEFT))//TURN_ON(RED_LED)
+    // {
+    //   SWL_ON(SWL_RED);
+    //   SWL_OFF(SWL_YELLOW);
+    // }
+    // if(SWL_Pushed(SWL_CTR)) //TURN_ON(YELLOW_LED)
+    // {
+    //   SWL_ON(SWL_YELLOW);
+    //   SWL_OFF(SWL_GREEN);
+    // }
 
-    if(SWL_Pushed(SWL_RIGHT)) //TURN_ON(GREEN_LED)
-    {
-      SWL_ON(SWL_GREEN);
-       SWL_OFF(SWL_RED);
-    }
+    // if(SWL_Pushed(SWL_RIGHT)) //TURN_ON(GREEN_LED)
+    // {
+    //   SWL_ON(SWL_GREEN);
+    //    SWL_OFF(SWL_RED);
+    // }
     
-    if (SWL_Pushed(SWL_UP))
-    {
-      SWL_OFF(SWL_ALL);
-    }
-    if (SWL_Pushed(SWL_DOWN))
-    {
-      SWL_OFF(SWL_ALL);
-    }
+    // if (SWL_Pushed(SWL_UP))
+    // {
+    //   SWL_OFF(SWL_ALL);
+    // }
+    // if (SWL_Pushed(SWL_DOWN))
+    // {
+    //   SWL_OFF(SWL_ALL);
+    // }
+
+   int count = GetCount();
+      if(SWL_Pushed(SWL_LEFT)  )//TURN_ON(RED_LED)
+      {
+        if (count < 2){
+        SWL_ON(SWL_RED);
+        }
+      }
+      
+      if(SWL_Pushed(SWL_CTR)) //TURN_ON(YELLOW_LED)
+      {
+        if (count < 2){
+        SWL_ON(SWL_YELLOW);
+        }
+      }
+      
+      if(SWL_Pushed(SWL_RIGHT)) //TURN_ON(GREEN_LED)
+      {
+        if (count < 2){
+        SWL_ON(SWL_GREEN);
+        }
+      }
+
+     
+
+      if(SWL_Pushed(SWL_UP))  //TURN_OFF(LED)
+      {
+        SWL_OFF(SWL_ALL);
+      }
+
+      if(SWL_Pushed(SWL_DOWN))  //TURN_OFF(LED)
+      {
+        SWL_OFF(SWL_ALL);
+      }
+     
 
   }                   
 }
@@ -157,15 +192,17 @@ SWL_Init();
 /********************************************************************/
 int GetCount(void){
   int i = 0;
-  if(SWL_Pushed(SWL_RED)>0) i++;
-  return i;
+  if(SWL_Pushed(SWL_RED)>0) {
+    i++;
+  }
 
-  if(SWL_Pushed(SWL_GREEN)>0) i++;
+  if(SWL_Pushed(SWL_GREEN)>0) {
+    i++;
+  }
+  if(SWL_Pushed(SWL_YELLOW)>0){
+     i++;
+  }
   return i;
-
-  if(SWL_Pushed(SWL_YELLOW)>0) i++;
-  return i;
-
 }
 /********************************************************************/
 // Interrupt Service Routines
