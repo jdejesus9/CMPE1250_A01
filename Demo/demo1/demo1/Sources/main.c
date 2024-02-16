@@ -230,17 +230,17 @@ if(SWL_Pushed(SWL_DOWN)){i=500;}
 /********************************************************************/
 // Defines
 /********************************************************************/
-#define ring
+// #define ring
 /********************************************************************/
 // Local Prototypes
 /********************************************************************/
-     int Helper(void);
-     void DelayFunction(void);
-     int Switches(void);
+    //  int Helper(void);
+    //  void DelayFunction(void);
+    //  int Switches(void);
 /********************************************************************/
 // Global Variables
 /********************************************************************/
-unsigned long j = 0;
+// unsigned long j = 0;
 /********************************************************************/
 // Constants
 /********************************************************************/
@@ -269,14 +269,30 @@ void main(void)
   {
    int pressed = Switches();
 
+   if (pressed == 3)
+   {
+    SWL_ON(SWL_ALL);
+   }
+
    if(pressed == 2)
    {
     SWL_ON(SWL_GREEN);
     SWL_OFF(SWL_YELLOW);
+    SWL_OFF(SWL_RED);
    }
-   else{
+
+   if(pressed == 1)
+   {
+    SWL_ON(SWL_RED);
+    SWL_OFF(SWL_YELLOW);
+    SWL_OFF(SWL_GREEN);
+
+   }
+   if(pressed == 0)
+   {
     SWL_ON(SWL_YELLOW);
     SWL_OFF(SWL_GREEN);
+    SWL_OFF(SWL_RED);
    }
 
 
