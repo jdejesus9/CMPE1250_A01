@@ -2,7 +2,7 @@
 #include "derivative.h" /* derivative-specific definitions */
 
 #include "sw_led.h" // on includes when implemented
-#include "pit.h"
+//#include "pit.h
 // other includes, as *required* for this implementation
 
 /////////////////////////////////////////////////////////////////////////////
@@ -33,7 +33,6 @@ ATD1DIEN1 = 0b00011111; //enable inputs
 // LED functions
 void SWL_ON (SWL_LEDColour led){
  PT1AD1 |= led;
-
 }
 void SWL_OFF (SWL_LEDColour led){
 PT1AD1 &= ~led;
@@ -90,7 +89,7 @@ int SWL_PushedDeb (SWL_SwitchPos pos)  //Debounced version of SWL_Pushed
         i = 0;
     }
 
-    PIT_Sleep(PIT_CH0, 1);
+    /*PIT_Sleep(PIT_CH0, 1);
     if (PT1AD1 & pos)
     {
         i = 1;
@@ -98,7 +97,7 @@ int SWL_PushedDeb (SWL_SwitchPos pos)  //Debounced version of SWL_Pushed
     else{
         i = 0;
     }
-    return i;
+    return i; */
 
     
     //Process the switch state
