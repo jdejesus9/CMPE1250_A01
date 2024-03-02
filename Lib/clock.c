@@ -56,8 +56,6 @@ void Clock_Set8MHZ(void)
 
 }
 
-
-
 /// @brief Set clock to 20MHZ using PLL
 /// @param  void
 void Clock_Set20MHZ(void)
