@@ -1,10 +1,10 @@
 /********************************************************************/
-// HC12 Program:  ICA07 - RTI Library and Blocking Delays
+// HC12 Program:  YourProg - MiniExplanation
 // Processor:     MC9S12XDP512
 // Bus Speed:     40MHz
 // Author:        JACKELYN DE JESUS
 // Details:       A more detailed explanation of the program is entered here               
-// Date:          March 06, 2024
+// Date:          Date Created
 // Revision History :
 //  each revision will have a date + desc. of changes
 
@@ -20,10 +20,6 @@
 //#include <stdlib.h>
 //#include <stdio.h>
 
-#include "sw_led.h"
-#include "pll.h"
-#include "rti.h"
-#include "clock.h"
 
 /********************************************************************/
 //Defines
@@ -55,9 +51,13 @@ void main(void)
 /********************************************************************/
   // one-time initializations
 /********************************************************************/
-RTI_Init();
+PLL_To20MHz();
 SWL_Init();
-
+Segs_Init();
+// do SCI startups
+SCI0BD = 130; // 20E6 / (9600 * 16) // 11.3.2.1
+ 
+SCI0CR2 = 0b00001100; // turn on TX/RX // 11.3.2.6
 
 /********************************************************************/
   // main program loop
@@ -65,81 +65,19 @@ SWL_Init();
 
   for (;;)
   {
-    //tier1
-    int numPressed=SwitchesPressesed();
+  // if the transmitter buffer is empty, load a new byte to send (TX)
+  if (SCI0SR1_TDRE /*&& SWL_Transition (SWL_CTR)*/)
+  SCI0DRL = rand() % 26 + 'A';
+  // if a byte has been received, pull it!
+  if (SCI0SR1_RDRF)
+  Segs_8H (2, SCI0DRL);
 
-    if(SWL_Pushed(SWL_RIGHT)){    //tier3
-    SWL_OFF(SWL_RED);             //tier3		
-    SWL_ON(SWL_GREEN);            //tier3
-    }                             //tier3
-    else{                         //tier3
-
-    //tier1
-    if (numPressed > 1 || numPressed == 0){
-
-      
-        RTI_Delay_ms(10);
-        SWL_TOG (SWL_RED);
-      
-    }
-
-    if (SWL_Pushed(SWL_UP) > 0){
-      
-        RTI_Delay_ms(8);
-        SWL_TOG (SWL_RED);
-      
-    }
-
-    if (SWL_Pushed(SWL_DOWN) > 0){
-      
-        RTI_Delay_ms(12);
-        SWL_TOG (SWL_RED);
-      
-    }
-
-    //tier2
-    if (SWL_Pushed(SWL_LEFT) > 0){
-
-        SWL_ON(SWL_RED);
-        RTI_Delay_ms(1);
-
-        SWL_OFF(SWL_RED);
-        RTI_Delay_ms(9);
-      
-    }
-
-  }   
-  }                
+  }                   
 }
 
 /********************************************************************/
 // Functions
 /********************************************************************/
-int SwitchesPressesed(void)
-{
-  int i = 0;
-
-  if (SWL_Pushed(SWL_UP) > 0)
-  {
-    i++;
-  }
-
-  if (SWL_Pushed(SWL_DOWN) > 0)
-  {
-    i++;
-  }
-
-  if (SWL_Pushed(SWL_LEFT) > 0)
-  {
-    i++;
-  }
-
-  if (SWL_Pushed(SWL_RIGHT) > 0)
-  {
-    i++;
-  }
-  return i;
-}
 
 /********************************************************************/
 // Interrupt Service Routines
