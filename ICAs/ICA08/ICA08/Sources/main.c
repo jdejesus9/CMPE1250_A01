@@ -17,9 +17,14 @@
 #include "derivative.h" /* derivative-specific definitions */
 
 //Other system includes or your includes go here
-//#include <stdlib.h>
-//#include <stdio.h>
+#include <stdlib.h>
+#include <stdio.h>
 
+#include "sw_led.h"
+#include "pll.h"
+#include "sci.h"
+#include "clock.h"
+#include "rti.h"
 
 /********************************************************************/
 //Defines
@@ -32,7 +37,7 @@
 /********************************************************************/
 // Global Variables
 /********************************************************************/
-
+unsigned char cha;
 /********************************************************************/
 // Constants
 /********************************************************************/
@@ -51,7 +56,12 @@ void main(void)
 /********************************************************************/
   // one-time initializations
 /********************************************************************/
+SWL_Init();
+RTI_Init();
 
+Clock_Set20MHZ();
+
+//(void)sci0_Init(9600, 0);
 
 /********************************************************************/
   // main program loop
@@ -59,6 +69,15 @@ void main(void)
 
   for (;;)
   {
+    RTI_Delay_ms (50);
+    SWL_TOG(SWL_RED);
+
+    cha = rand() % 26 + 'A';
+
+    if (SCI0SR1_TDRE)
+    {
+      SCI0DRL = (unsigned char)cha;
+    }
 
   }                   
 }
