@@ -13,7 +13,8 @@ unsigned long sci0_Init(unsigned long ulBaudRate, int iRDRF_Interrupt){
 
 // blocking byte read
 // waits for a byte to arrive and returns it
-unsigned char sci0_read(void){
+unsigned char sci0_read(unsigned char * pData){
+    
     if(SCI0SR1 & SCI0SR1_RDRF_MASK){
         *pData = SCI0DRL;
         return 1;
