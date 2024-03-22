@@ -2,13 +2,18 @@
 #include "derivative.h"
 #include "sci.h"
 
-unsigned long sci0_Init(unsigned long ulBaudRate, int iRDRF_Interrupt){
+// unsigned long sci0_Init(unsigned long ulBaudRate, int iRDRF_Interrupt){
 
-    unsigned int baud = 200000 / (16*ulBaudRate);
-    SCI0BD = baud;
+//     unsigned int baud = 200000 / (16*ulBaudRate);
+//     SCI0BD = baud;
 
-    return baud;
+//     return baud;
 
+// }
+
+unsigned long sci0_Init(void){
+    SCI0BD = 130;
+    SCI0CR2 = 0b00001100;
 }
 
 // blocking byte read

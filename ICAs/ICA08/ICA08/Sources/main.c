@@ -9,7 +9,6 @@
 // each revision will have a date + desc. of changes
 
 
-
 /********************************************************************/
 // Library includes
 /********************************************************************/
@@ -33,11 +32,11 @@
 /********************************************************************/
 // Local Prototypes
 /********************************************************************/
-int CheckVowel(unsigned char chReceive);
+int Vowel(unsigned char chReceive);
 /********************************************************************/
 // Global Variables
 /********************************************************************/
-unsigned char cha;
+unsigned char ch;
 unsigned char cCheck;
 unsigned int getBaud;
 /********************************************************************/
@@ -59,13 +58,9 @@ void main(void)
   // one-time initializations
 /********************************************************************/
 SWL_Init();
-//RTI_Init();
-
 sci0_Init();
-
-PLL_To20MHz();
-
-//(void)sci0_Init(9600, 0);
+//PLL_To20MHz();
+Clock_Set20MHZ();
 
 /********************************************************************/
   // main program loop
@@ -73,24 +68,22 @@ PLL_To20MHz();
 
   for (;;)
   {
-    SWL_TOG(SWL_RED);
     RTI_Delay_ms(50);
+    SWL_TOG(SWL_RED);
 
     cCheck = rand() % 26 + 'A';
+    
     if (SCI0SR1_TDRE){
       SCI0DRL = cCheck;
     }
 
-    if (SCI0SR1 & SCI0SR1_RDRF_MASK)
-    {
-      cha = SCI0DRL;
-      if (CheckVowel(cha))
-      {
+    if (SCI0SR1 & SCI0SR1_RDRF_MASK){
+      ch = SCI0DRL;
+      if (Vowel(ch)){
         SWL_ON(SWL_GREEN);
         SWL_OFF(SWL_YELLOW);
       }
-      else
-      {
+      else{
         SWL_ON(SWL_YELLOW);
         SWL_OFF(SWL_GREEN);
       
@@ -102,7 +95,7 @@ PLL_To20MHz();
 /********************************************************************/
 // Functions
 /********************************************************************/
-int CheckVowel(unsigned char chReceive)
+int Vowel(unsigned char chReceive)
 {
   if (chReceive == 'A'  chReceive == 'E'  chReceive == 'I'  chReceive == 'O'  chReceive == 'U')
   {
