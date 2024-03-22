@@ -50,5 +50,11 @@ void sci0_Init(void){
 
 // // // send a null-terminated string over SCI
 // // void sci0_txStr (char const * straddr){
-    
+        // for (; *straddr; ++straddr)
+        //     sci0_txByte (*straddr);
 // // }
+
+// unsigned long sci0_InitMath (unsigned long ulBusClock, unsigned long ulBaudRate)
+// {
+
+// }
