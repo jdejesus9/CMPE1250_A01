@@ -32,12 +32,12 @@
 /********************************************************************/
 // Local Prototypes
 /********************************************************************/
-int Vowel(unsigned char chReceive);
+int Vowel(unsigned char receive);
 /********************************************************************/
 // Global Variables
 /********************************************************************/
-unsigned char ch;
-unsigned char cCheck;
+unsigned char cha;
+unsigned char Check;
 unsigned int getBaud;
 /********************************************************************/
 // Constants
@@ -52,16 +52,16 @@ void main(void)
 
   // main entry point
   _DISABLE_COP();
-  //EnableInterrupts;
+  EnableInterrupts;
   
 /********************************************************************/
   // one-time initializations
 /********************************************************************/
 SWL_Init();
-sci0_Init();
+
 //PLL_To20MHz();
 Clock_Set20MHZ();
-
+sci0_Init();
 /********************************************************************/
   // main program loop
 /********************************************************************/
@@ -71,15 +71,15 @@ Clock_Set20MHZ();
     RTI_Delay_ms(50);
     SWL_TOG(SWL_RED);
 
-    cCheck = rand() % 26 + 'A';
+    Check = rand() % 26 + 'A';
     
     if (SCI0SR1_TDRE){
-      SCI0DRL = cCheck;
+      SCI0DRL = Check;
     }
 
     if (SCI0SR1 & SCI0SR1_RDRF_MASK){
-      ch = SCI0DRL;
-      if (Vowel(ch)){
+      cha = SCI0DRL;
+      if (Vowel(cha)){
         SWL_ON(SWL_GREEN);
         SWL_OFF(SWL_YELLOW);
       }
@@ -95,9 +95,9 @@ Clock_Set20MHZ();
 /********************************************************************/
 // Functions
 /********************************************************************/
-int Vowel(unsigned char chReceive)
+int Vowel(unsigned char receive)
 {
-  if (chReceive == 'A'  chReceive == 'E'  chReceive == 'I'  chReceive == 'O'  chReceive == 'U')
+  if (receive == 'A' || receive == 'E' || receive == 'I' || receive == 'O'  ||receive == 'U')
   {
     return 1;
   }
