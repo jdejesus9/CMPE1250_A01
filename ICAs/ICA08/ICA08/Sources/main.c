@@ -33,11 +33,13 @@
 /********************************************************************/
 // Local Prototypes
 /********************************************************************/
-
+int CheckVowel(unsigned char chReceive);
 /********************************************************************/
 // Global Variables
 /********************************************************************/
 unsigned char cha;
+unsigned char cCheck;
+unsigned int getBaud;
 /********************************************************************/
 // Constants
 /********************************************************************/
@@ -57,9 +59,11 @@ void main(void)
   // one-time initializations
 /********************************************************************/
 SWL_Init();
-RTI_Init();
+//RTI_Init();
 
-Clock_Set20MHZ();
+sci0_Init();
+
+PLL_To20MHz();
 
 //(void)sci0_Init(9600, 0);
 
@@ -69,23 +73,46 @@ Clock_Set20MHZ();
 
   for (;;)
   {
-    RTI_Delay_ms (50);
     SWL_TOG(SWL_RED);
+    RTI_Delay_ms(50);
 
-    cha = rand() % 26 + 'A';
-
-    if (SCI0SR1_TDRE)
-    {
-      SCI0DRL = (unsigned char)cha;
+    cCheck = rand() % 26 + 'A';
+    if (SCI0SR1_TDRE){
+      SCI0DRL = cCheck;
     }
 
+    if (SCI0SR1 & SCI0SR1_RDRF_MASK)
+    {
+      cha = SCI0DRL;
+      if (CheckVowel(cha))
+      {
+        SWL_ON(SWL_GREEN);
+        SWL_OFF(SWL_YELLOW);
+      }
+      else
+      {
+        SWL_ON(SWL_YELLOW);
+        SWL_OFF(SWL_GREEN);
+      
+      }
+    }
   }                   
 }
 
 /********************************************************************/
 // Functions
 /********************************************************************/
-
+int CheckVowel(unsigned char chReceive)
+{
+  if (chReceive == 'A'  chReceive == 'E'  chReceive == 'I'  chReceive == 'O'  chReceive == 'U')
+  {
+    return 1;
+  }
+  else
+  {
+    return 0;
+  }
+}
 /********************************************************************/
 // Interrupt Service Routines
 /********************************************************************/
