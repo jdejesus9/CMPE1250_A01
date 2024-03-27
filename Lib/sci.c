@@ -29,7 +29,7 @@ unsigned char sci0_read(unsigned char * pData){
     }
    
   
-// }
+}
 
 // // read a byte, non-blocking
 // // returns 1 if byte read, 0 if not
@@ -49,14 +49,14 @@ unsigned char sci0_read(unsigned char * pData){
     
 // }
 
-// // // send a null-terminated string over SCI
-// // void sci0_txStr (char const * straddr){
-        // for (; *straddr; ++straddr)
-        //     sci0_txByte (*straddr);
-// // }
+// send a null-terminated string over SCI
+void sci0_txStr (char const * straddr){
+        for (; *straddr; ++straddr)
+            sci0_txByte (*straddr);
+}
 
-// unsigned long sci0_InitMath (unsigned long ulBusClock, unsigned long ulBaudRate)
-// {
-
-// }
+unsigned long sci0_InitMath (unsigned long ulBusClock, unsigned long ulBaudRate)
+{
+    
+}
 
