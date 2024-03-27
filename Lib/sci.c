@@ -16,7 +16,6 @@ void sci0_Init(void){
     SCI0CR2 = 0b00001100;
 }
 
-<<<<<<< HEAD
 // blocking byte read
 // waits for a byte to arrive and returns it
 unsigned char sci0_read(unsigned char * pData){
@@ -28,18 +27,6 @@ unsigned char sci0_read(unsigned char * pData){
     elese {
         return 0;
     }
-=======
-// // blocking byte read
-// // waits for a byte to arrive and returns it
-// unsigned char sci0_read(void){
-//     if(SCI0SR1 & SCI0SR1_RDRF_MASK){
-//         *pData = SCI0DRL;
-//         return 1;
-//     }
-//     elese {
-//         return 0;
-//     }
->>>>>>> 4e524194d96ab2d59473947cba68b2dda8e3d627
    
   
 // }
@@ -72,3 +59,4 @@ unsigned char sci0_read(unsigned char * pData){
 // {
 
 // }
+
