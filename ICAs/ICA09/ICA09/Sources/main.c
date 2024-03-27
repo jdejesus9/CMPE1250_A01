@@ -9,7 +9,6 @@
 //  each revision will have a date + desc. of changes
 
 
-
 /********************************************************************/
 // Library includes
 /********************************************************************/
@@ -17,8 +16,14 @@
 #include "derivative.h" /* derivative-specific definitions */
 
 //Other system includes or your includes go here
-//#include <stdlib.h>
-//#include <stdio.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+#include "sw_led.h"
+#include "pll.h"
+#include "sci.h"
+#include "clock.h"
+#include "rti.h"
 
 
 /********************************************************************/
@@ -48,10 +53,15 @@ void main(void)
   _DISABLE_COP();
   //EnableInterrupts;
   
-/********************************************************************/
+/********************************************************************/c
   // one-time initializations
 /********************************************************************/
+SWL_Init();
+Clock_Set20MHZ();
 
+PLL_To20MHz();
+
+sci0_InitMath(200000,19200);
 
 /********************************************************************/
   // main program loop
@@ -59,7 +69,7 @@ void main(void)
 
   for (;;)
   {
-
+    
   }                   
 }
 

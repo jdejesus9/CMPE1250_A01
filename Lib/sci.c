@@ -2,14 +2,14 @@
 #include "derivative.h"
 #include "sci.h"
 
-// unsigned long sci0_Init(unsigned long ulBaudRate, int iRDRF_Interrupt){
+unsigned long sci0_Init(unsigned long ulBaudRate, int iRDRF_Interrupt){
 
-//     unsigned int baud = 200000 / (16*ulBaudRate);
-//     SCI0BD = baud;
+    unsigned int baud = 200000 / (16*ulBaudRate);
+    SCI0BD = baud;
 
-//     return baud;
+    // return baud;
 
-// }
+}
 
 void sci0_Init(void){
     SCI0BD = 130;
@@ -57,6 +57,10 @@ void sci0_txStr (char const * straddr){
 
 unsigned long sci0_InitMath (unsigned long ulBusClock, unsigned long ulBaudRate)
 {
-    
+    unsigned int baud = ulBusClock / (16*ulBaudRate);
+    SCI0BD = baud;
+
+    // return baud;
+
 }
 
