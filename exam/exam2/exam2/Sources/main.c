@@ -84,7 +84,8 @@ SCI0CR2 = 0b00001100;
       SCI0DRL = Check;
     }
 
-    // if (SWL_PushedO(SWL_UP)){
+    // if (SWL_PushedO(SWL_UP))
+    //{
     //   cha = SCI0DRL;
     //   if (up(cha)){
     //     SWL_UP(SWL_GREEN);
