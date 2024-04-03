@@ -100,25 +100,25 @@ int SWL_PushedDeb (SWL_SwitchPos pos)  //Debounced version of SWL_Pushed
     return i; */
 
     
-    //Process the switch state
-    // switch (Sw_Process(&state, pos)) {
-    //     case Pressed:
-    //         debounceCounter++;
-    //         if (debounceCounter >= DEBOUNCE_DELAY) {
-    //             debounceCounter = 0;
-    //             return 1; // Switch is considered pressed after debounce delay
-    //         }
-    //         break;
+    Process the switch state
+    switch (Sw_Process(&state, pos)) {
+        case Pressed:
+            debounceCounter++;
+            if (debounceCounter >= DEBOUNCE_DELAY) {
+                debounceCounter = 0;
+                return 1; // Switch is considered pressed after debounce delay
+            }
+            break;
 
-    //     case Released:
-    //         debounceCounter = 0;
-    //         break;
+        case Released:
+            debounceCounter = 0;
+            break;
 
-    //     default:
-    //         break;
-    // }
+        default:
+            break;
+    }
 
-    // return 0; // Switch is not pressed
+    return 0; // Switch is not pressed
 
 }
 //Optional - Using 
