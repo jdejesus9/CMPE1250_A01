@@ -3,7 +3,7 @@
 
 #include "segs.h"
 #include "sw_led.h"
-#include "pit.h"
+//#include "pit.h"
 
 // setup ports to speak with 7-segs
 
