@@ -1,7 +1,7 @@
 #include <hidef.h> 
 #include "derivative.h"
 #include "sci.h"
-#include "clock.h"
+
 
 // unsigned long sci0_Init(unsigned long ulBaudRate, int iRDRF_Interrupt){
 
