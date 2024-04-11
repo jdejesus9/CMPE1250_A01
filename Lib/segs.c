@@ -1,14 +1,16 @@
 #include <hidef.h>      /* common defines and macros */
 #include "derivative.h" /* derivative-specific definitions */
 
+#include <stdlib.h>
+#include <stdio.h>
+
 #include "segs.h"
-#include "sw_led.h"
-//#include "pit.h"
+
 
 // setup ports to speak with 7-segs
 
 /////////////////////////////////////////////////////////////////////////////
-// local prototypes
+// local helpers
 /////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////
@@ -24,11 +26,18 @@
 /////////////////////////////////////////////////////////////////////////////
 static unsigned int i;
 
+#define Segs_WLATCH
+    PORTA &= ~(0x01);
+    PORTA |= 0x01
+
+#define Segs_ML PORTA &= (~0x02)
+#define Segs_MH PORTA |= 0x02
+
 void Segs_Init(void)
 {
     // happen multiple times, not in init then
     // PORTB = 0b01011000; // Control byte configuration
-    DDRA |= PORTA_PA1_MASK | PORTA_PA0_MASK; // only happen once
+    DDRA |= 0x03; // only happen once
     DDRB = 0xFF; // only happen once
     PORTA |= 0x03; // In the notes for the init method
     Segs_Clear();   
@@ -37,27 +46,47 @@ void Segs_Init(void)
 
 // show HEX decoding (changes all of display to HEX, w/wo dp)
 /* Params: (address, data, dp) */
-void Segs_Normal(unsigned char address, unsigned char data, Segs_DPOption dp)
+void Segs_Normal(unsigned char Addr, unsigned char Value, Segs_DPOption dp)
 {
-    address &= (address & 0x7);
-    PORTB = (0b01011000 | address);
-    PORTA |= PORTA_PA1_MASK;
-    PORTA &= ~PORTA_PA0_MASK;
-    PORTA |= PORTA_PA0_MASK;
-    data &= 0x0F;
-    PORTB = data;
+   Addr &= 0x07;
+   Addr |= 0b01011000;
 
-    if (dp == Segs_DP_ON)
-    {
-        PORTB &= ~0x80;
-    }
-    else
-    {   
-        PORTB |= 0x80;
-    }
-    PORTA &= ~PORTA_PA1_MASK;
-    PORTA &= ~PORTA_PA0_MASK;
-    PORTA |= PORTA_PA0_MASK;
+   if (dp)
+   {
+        Value &= ~(0x80);
+   }
+   else{
+        Value |= 0x80;
+   }
+
+   PORTB = Addr;
+   Segs_MH;
+
+   Segs_WLATCH;
+
+   PORTB = Value;
+   Segs_ML;
+
+   Segs_WLATCH;
+    // address &= (address & 0x7);
+    // PORTB = (0b01011000 | address);
+    // PORTA |= PORTA_PA1_MASK;
+    // PORTA &= ~PORTA_PA0_MASK;
+    // PORTA |= PORTA_PA0_MASK;
+    // data &= 0x0F;
+    // PORTB = data;
+
+    // if (dp == Segs_DP_ON)
+    // {
+    //     PORTB &= ~0x80;
+    // }
+    // else
+    // {   
+    //     PORTB |= 0x80;
+    // }
+    // PORTA &= ~PORTA_PA1_MASK;
+    // PORTA &= ~PORTA_PA0_MASK;
+    // PORTA |= PORTA_PA0_MASK;
 
 }
 
