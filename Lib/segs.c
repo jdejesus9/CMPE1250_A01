@@ -171,26 +171,26 @@ void Segs_Clear(void)
 
 // show a 16-bit value on the upper or lower display
 /* Params: (value, line) */
-// void Segs_16H(unsigned int value, Segs_LineOption line)
-// {
-//     byte i = 0;
+void Segs_16H(unsigned int value, Segs_LineOption line)
+{
+    byte i = 0;
 
-//     if (line == Segs_LineTop)
-//     {
-//         for (i = 0; i < 4; i++)
-//         {
-//             Segs_Normal((3 - i), (unsigned char)(value >> (i * 4)), Segs_DP_OFF);
-//         }
-//     }
+    if (line == Segs_LineTop)
+    {
+        for (i = 0; i < 4; i++)
+        {
+            Segs_Normal((3 - i), (unsigned char)(value >> (i * 4)), Segs_DP_OFF);
+        }
+    }
 
-//     if (line == Segs_LineBottom)
-//     {
-//         for (i = 0; i < 4; i++)
-//         {
-//             Segs_Normal((7 - i), (unsigned char)(value >> (i * 4)), Segs_DP_OFF);
-//         }
-//     }
-// }
+    if (line == Segs_LineBottom)
+    {
+        for (i = 0; i < 4; i++)
+        {
+            Segs_Normal((7 - i), (unsigned char)(value >> (i * 4)), Segs_DP_OFF);
+        }
+    }
+}
 // show the 8-bit value starting on the digit as addr (0-6)
 /* Params: (addr, value) */
 void Segs_8H(unsigned char Addr, unsigned char Value)

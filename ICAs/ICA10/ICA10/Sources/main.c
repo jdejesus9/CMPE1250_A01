@@ -80,18 +80,22 @@ Segs_Custom(6, 0b10110001);
 
   for (;;)
   {
-    // SWL_ON(SWL_GREEN);
+    SWL_ON(SWL_GREEN);
 
-    // for (i = 0x0000; i <= 0xFFFF; i++)
-    // {
-    //   if (SWL_Pushed(SWL_CTR))
-    //   {
-    //     RTI_Delay_ms(100);
-    //     Segs_16H(i, 0);
-    //     Segs_16H(0xFFFF - i, 1);
+    for (i = 0x0000; i <= 0xFFFF; i++)
+    {
+      if (SWL_Pushed(SWL_CTR))
+      {
+        RTI_Delay_ms(100);
+        Segs_16H(i, 0);
+        Segs_16H(0xFFFF - i, 1);
 
-    //   }
-    // }
+      }
+    if (ctrPressed)
+    {
+      caretAnimation
+    }
+    }
 
   }                   
 }
