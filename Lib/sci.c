@@ -1,21 +1,26 @@
-/* #include <hidef.h> 
+#include <hidef.h> 
 #include "derivative.h"
 #include "sci.h"
+#include "sw_led.h"
+#include "pll.h"
+
+#include <stdlib.h>
+#include <stdio.h>
 
 
-// unsigned long sci0_Init(unsigned long ulBaudRate, int iRDRF_Interrupt){
+unsigned long sci0_Init(unsigned long ulBaudRate, int iRDRF_Interrupt){
 
-//     unsigned int baud = 200000 / (16*ulBaudRate);
-//     SCI0BD = baud;
+    unsigned long baud = 200000 / (16*ulBaudRate);
+    SCI0BD = baud;
 
-//     // return baud;
+    // return baud;
 
-// }
-
-void sci0_Init(void){
-    SCI0BD = 130;
-    SCI0CR2 = 0b00001100;
 }
+
+// void sci0_Init(void){
+//     SCI0BD = 130;
+//     SCI0CR2 = 0b00001100;
+// }
 
 // blocking byte read
 // waits for a byte to arrive and returns it
@@ -40,16 +45,26 @@ void sci0_Init(void){
 // // }
 
 // // send a byte over SCI
-// void sci0_txByte (unsigned char data){
-//     while (!(SCI0SR1 & SCI0SR1_RDRF_MASK)); // wait till transmit data register is empty
-//     data = SCI0DRL;
+void sci0_txByte (unsigned char data){
+    while (!(SCI0SR1 & SCI0SR1_RDRF_MASK)); // wait till transmit data register is empty
+    SCI0DRL = data;
 
-//     if(SCI0SR1 & SCI0SR1_RDRF_MASK)
-//     {
-//         data = SCI0DRL;
-//     }
+    // if(SCI0SR1 & SCI0SR1_RDRF_MASK)
+    // {
+    //     data = SCI0DRL;
+    // }
     
-// }
+}
+
+unsigned int sci0_rxByte(unsigned char * pData){
+    if(SCI0SR1 & SCI0SR1_RDRF_MASK){
+        *pData = SCI0DRL;
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
 
 // send a null-terminated string over SCI
 void sci0_txStr (char const * straddr){
@@ -59,7 +74,7 @@ void sci0_txStr (char const * straddr){
 
 unsigned long sci0_InitMath (unsigned long ulBusClock, unsigned long ulBaudRate)
 {
-    unsigned int baud = ulBusClock / (16*ulBaudRate);
+    unsigned long baud = ulBusClock / (16*ulBaudRate);
     SCI0BD = baud;
 
     // return baud;
@@ -81,65 +96,79 @@ int sci0_Peek (void)
 
 }
 
-// use an escape sequence to place the cursor at the specified position
-// this is the \x1B[y;xH form with formatted argument replacement (sprintf)
-void sci0_GotoXY (int iCol, int iRow)
-{
+// // use an escape sequence to place the cursor at the specified position
+// // this is the \x1B[y;xH form with formatted argument replacement (sprintf)
+// void sci0_GotoXY (int iCol, int iRow)
+// {
 
-}
+// }
 
-// use sci0_GotoXY and sci0_txStr to place the string
-void sci0_txStrXY (int iCol, int iRow, char const * straddr)
-{
+// // use sci0_GotoXY and sci0_txStr to place the string
+// void sci0_txStrXY (int iCol, int iRow, char const * straddr)
+// {
 
-}
+// }
 
-// use an escape sequence to clear the terminal
-void sci0_ClearScreen (void)
+// // use an escape sequence to clear the terminal
+void sci0_ClearScreen ()
 {
     sci0_txStr("\x1b[1J");
 }
 
-// output 1s and 0s to display a 16-bit value
-// as binary on the SCI at the current position
+// // output 1s and 0s to display a 16-bit value
+// // as binary on the SCI at the current position
 void sci0_ShowBin16 (unsigned int iVal)
 {
+    int decinum, binarynum[32], x;
+        printf("Please enter a decimal number: ");
+        scanf("%d", &decinum);
+
+    for (x = 0; decinum > 0; x++)
+    {
+        binarynum[x] = decinum % 2;
+        decinum = decinum / 2;
+    }
+    printf("Binary representation is: ");
+    for (x = x - 1; x >= 0; x--)
+    {
+        printf("%d", binarynum[x]);
+    }
 
 }
 
-// take a single ASCII character that looks like HEX and
-// convert it to the numerical equivalent
-// valid characters are '0'-'9', 'a'-'f', 'A'-'F'
-// all other ASCII codes return 0
-int ToDigitVal (char digit)
-{
+// // take a single ASCII character that looks like HEX and
+// // convert it to the numerical equivalent
+// // valid characters are '0'-'9', 'a'-'f', 'A'-'F'
+// // all other ASCII codes return 0
+// int ToDigitVal (char digit)
+// {
 
-}
+// }
 
-// convert the 4 character ASCII array representation
-// into a single 16-bit value
-// uses ToDigitVal to convert each position
-unsigned int HexArrayToUInt16 (char * pArray)
-{
+// // convert the 4 character ASCII array representation
+// // into a single 16-bit value
+// // uses ToDigitVal to convert each position
+// unsigned int HexArrayToUInt16 (char * pArray)
+// {
 
-}
+// }
 
-// draw the entire portion of the output that changes
-// with a change in operands or operator
-void DrawState (unsigned int iOPA, unsigned int iOPB, Operation op)
-{
+// // draw the entire portion of the output that changes
+// // with a change in operands or operator
+// void DrawState (unsigned int iOPA, unsigned int iOPB, Operation op)
+// {
 
-}
+// }
 
-// cursor needs to go back to editing position
-sci0_GotoXY (13 + iXEditPos, 5 + iYEditPos)
-{
+// // cursor needs to go back to editing position
+// sci0_GotoXY (13 + iXEditPos, 5 + iYEditPos)
+// {
 
-} */
+// }
 
 
 
-#include "derivative.h"
+/*#include "derivative.h"
 #include "sci.h"
 #include "clock.h"
 unsigned long sci0_Init(unsigned long ulBaudRate, int iRDRF_Interrupt){
@@ -204,7 +233,7 @@ void sci0_txStr (char const * straddr){
         sci0_txByte(*straddr);
         straddr++;
     }
-}
+}*/
 
 
 
