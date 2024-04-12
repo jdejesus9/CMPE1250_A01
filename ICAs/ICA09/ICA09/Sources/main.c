@@ -64,7 +64,7 @@ void main(void)
   // one-time initializations
 /********************************************************************/
 SWL_Init();
-Clock_Set20MHZ();
+//Clock_Set20MHZ();
 
 PLL_To20MHz();
 
@@ -80,7 +80,7 @@ scio_txStr("\x1b[31m \x1b[0;0H Jackelyn De Jesus");
   for (;;)
   {
     RTI_Delay_ms(250);
-    SWL_TOG(SWL_RED)
+    SWL_TOG(SWL_RED);
 
     if (SWL_Pushed(SWL_CTR))
     {
