@@ -17,12 +17,15 @@
 #include "derivative.h" /* derivative-specific definitions */
 
 //Other system includes or your includes go here
-//#include <stdlib.h>
-//#include <stdio.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 #include "sw_led.h"
 #include "clock.h"
 #include "sci.h"
+#include "rti.h"
+#include "pll.h"
+#include "segs.h"
 
 
 /********************************************************************/
@@ -36,7 +39,8 @@
 /********************************************************************/
 // Global Variables
 /********************************************************************/
-
+unsigned int i;
+unsigned int z;
 /********************************************************************/
 // Constants
 /********************************************************************/
@@ -56,7 +60,17 @@ void main(void)
   // one-time initializations
 /********************************************************************/
 SWL_Init();
-Clock_Set20MHZ();
+Segs_Init();
+
+Segs_8H(7, 0b11100100);
+
+Segs_Normal(4, '3', Segs_DP_OFF);
+
+Segs_Custom(1, 0b1001010);
+Segs_Custom(2, 0b11110000);
+Segs_Custom(5, 0b10001011);
+Segs_Custom(6, 0b10110001);
+
 
 
 
@@ -66,6 +80,18 @@ Clock_Set20MHZ();
 
   for (;;)
   {
+    SWL_ON(SWL_GREEN);
+
+    for (i = 0x0000; i <= 0xFFFF; i++)
+    {
+      if (SWL_Pushed(SWL_CTR))
+      {
+        RTI_Delay_ms(100);
+        Segs_16H(i, 0);
+        Segs_16H(0xFFFF - i, 1);
+
+      }
+    }
 
   }                   
 }
