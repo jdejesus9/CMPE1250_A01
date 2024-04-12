@@ -64,7 +64,7 @@ void main(void)
   // one-time initializations
 /********************************************************************/
 SWL_Init();
-//Clock_Set20MHZ();
+Clock_Set20MHZ();
 
 PLL_To20MHz();
 

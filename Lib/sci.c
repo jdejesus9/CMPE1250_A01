@@ -8,9 +8,9 @@
 #include <stdio.h>
 
 
-unsigned long sci0_Init(unsigned long ulBaudRate, int iRDRF_Interrupt){
+void sci0_Init(unsigned long ulBaudRate, int iRDRF_Interrupt){
 
-    unsigned long baud = 200000 / (16*ulBaudRate);
+    unsigned long baud = 20000000 / (16 * ulBaudRate);
     SCI0BD = baud;
 
     // return baud;
@@ -72,7 +72,7 @@ void sci0_txStr (char const * straddr){
             sci0_txByte (*straddr);
 }
 
-unsigned long sci0_InitMath (unsigned long ulBusClock, unsigned long ulBaudRate)
+void sci0_InitMath (unsigned long ulBusClock, unsigned long ulBaudRate)
 {
     unsigned long baud = ulBusClock / (16*ulBaudRate);
     SCI0BD = baud;

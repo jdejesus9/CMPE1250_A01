@@ -76,116 +76,116 @@ int SWL_Any (void){
 //  implementing these functions
 
 // by switch name
-int SWL_PushedDeb (SWL_SwitchPos pos)  //Debounced version of SWL_Pushed
-{
+// int SWL_PushedDeb (SWL_SwitchPos pos)  //Debounced version of SWL_Pushed
+// {
 
-    unsigned int i;
-    if (PT1AD1 & pos)
-    {
-        i = 1;
-    }
-    else
-    {
-        i = 0;
-    }
+//     unsigned int i;
+//     if (PT1AD1 & pos)
+//     {
+//         i = 1;
+//     }
+//     else
+//     {
+//         i = 0;
+//     }
 
-    /*PIT_Sleep(PIT_CH0, 1);
-    if (PT1AD1 & pos)
-    {
-        i = 1;
-    }
-    else{
-        i = 0;
-    }
-    return i; */
+//     /*PIT_Sleep(PIT_CH0, 1);
+//     if (PT1AD1 & pos)
+//     {
+//         i = 1;
+//     }
+//     else{
+//         i = 0;
+//     }
+//     return i; */
 
     
-    Process the switch state
-    switch (Sw_Process(&state, pos)) {
-        case Pressed:
-            debounceCounter++;
-            if (debounceCounter >= DEBOUNCE_DELAY) {
-                debounceCounter = 0;
-                return 1; // Switch is considered pressed after debounce delay
-            }
-            break;
+//     Process the switch state
+//     switch (Sw_Process(&state, pos)) {
+//         case Pressed:
+//             debounceCounter++;
+//             if (debounceCounter >= DEBOUNCE_DELAY) {
+//                 debounceCounter = 0;
+//                 return 1; // Switch is considered pressed after debounce delay
+//             }
+//             break;
 
-        case Released:
-            debounceCounter = 0;
-            break;
+//         case Released:
+//             debounceCounter = 0;
+//             break;
 
-        default:
-            break;
-    }
+//         default:
+//             break;
+//     }
 
-    return 0; // Switch is not pressed
+//     return 0; // Switch is not pressed
 
-}
-//Optional - Using 
-SwState Sw_Process(SwState *state, SWL_SwitchPos sw_pos)//Process state of a swicth in PT1AD1
-{
-    if (SWL_Pushed(sw_pos))
-    {
-        //Active
-        if(*state == Idle)
-        {
-            *state = Pressed;
-        }
-        else
-        {
-            *state = Held;
-        }
-    }
-    else
-    {
+// }
+// //Optional - Using 
+// SwState Sw_Process(SwState *state, SWL_SwitchPos sw_pos)//Process state of a swicth in PT1AD1
+// {
+//     if (SWL_Pushed(sw_pos))
+//     {
+//         //Active
+//         if(*state == Idle)
+//         {
+//             *state = Pressed;
+//         }
+//         else
+//         {
+//             *state = Held;
+//         }
+//     }
+//     else
+//     {
 
-        //Inactive
-        if(*state == Held)
-        {
-            *state = Released;
-        }
-        else
-        {
-            *state = Idle;
-        }
+//         //Inactive
+//         if(*state == Held)
+//         {
+//             *state = Released;
+//         }
+//         else
+//         {
+//             *state = Idle;
+//         }
         
 
-    }
+//     }
 
-    return *state;
-} 
-//Process debounced state of a swicth in PT1AD1
-SwState Sw_ProcessD(SwState *SState, SWL_SwitchPos SPos) //port, SwState, PIN
-{
-    if(SWL_PushedDeb(SPos))
-    {
-         //Active
-        if(*SState == Idle)
-        {
-            *SState  = Pressed;
-        }
-        else
-        {
-            *SState  = Held;
-        }
-    }
-        else
-    {
+//     return *state;
+// } 
+// //Process debounced state of a swicth in PT1AD1
+// SwState Sw_ProcessD(SwState *SState, SWL_SwitchPos SPos) //port, SwState, PIN
+// {
+//     if(SWL_PushedDeb(SPos))
+//     {
+//          //Active
+//         if(*SState == Idle)
+//         {
+//             *SState  = Pressed;
+//         }
+//         else
+//         {
+//             *SState  = Held;
+//         }
+//     }
+//         else
+//     {
 
-        //Inactive
-        if(*SState == Held)
-        {
-            *SState = Released;
-        }
-        else
-        {
-            *SState = Idle;
-        }
+//         //Inactive
+//         if(*SState == Held)
+//         {
+//             *SState = Released;
+//         }
+//         else
+//         {
+//             *SState = Idle;
+//         }
         
 
-    }
-    return *SState;
-}
+//     }
+//     return *SState;
+// }
 
 ////////////////////////////////////////////////////////////////////////////
 // Hidden Helpers (local to implementation only)

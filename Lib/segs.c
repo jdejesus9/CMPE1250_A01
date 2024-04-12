@@ -26,8 +26,8 @@
 /////////////////////////////////////////////////////////////////////////////
 // static unsigned int i;
 
-#define Segs_WLATCH
-    PORTA &= ~(0x01);
+#define Segs_WLATCH     \
+    PORTA &= ~(0x01);   \
     PORTA |= 0x01
 
 #define Segs_ML PORTA &= (~0x02)
@@ -38,7 +38,7 @@ void Segs_Init(void)
     // happen multiple times, not in init then
     // PORTB = 0b01011000; // Control byte configuration
     DDRA |= 0x03; // only happen once
-    DDRB = 0xFF; // only happen once
+    DDRB = 0xff; // only happen once
     PORTA |= 0x03; // In the notes for the init method
     Segs_Clear();   
 }
@@ -104,7 +104,7 @@ void Segs_Custom(unsigned char Addr, unsigned char Value)
     Segs_WLATCH;
 
     PORTB = Value;
-    Segs_MH;
+    Segs_ML;
 
     Segs_WLATCH;
 

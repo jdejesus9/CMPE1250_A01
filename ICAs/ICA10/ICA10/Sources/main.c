@@ -17,15 +17,17 @@
 #include "derivative.h" /* derivative-specific definitions */
 
 //Other system includes or your includes go here
-#include <stdlib.h>
-#include <stdio.h>
+
 
 #include "sw_led.h"
-#include "clock.h"
+//#include "clock.h"
 #include "sci.h"
 #include "rti.h"
 #include "pll.h"
 #include "segs.h"
+
+#include <stdlib.h>
+#include <stdio.h>
 
 
 /********************************************************************/
@@ -54,7 +56,7 @@ void main(void)
 
   // main entry point
   _DISABLE_COP();
-  //EnableInterrupts;
+  // EnableInterrupts;
   
 /********************************************************************/
   // one-time initializations
@@ -72,26 +74,24 @@ Segs_Custom(5, 0b10001011);
 Segs_Custom(6, 0b10110001);
 
 
-
-
 /********************************************************************/
   // main program loop
 /********************************************************************/
 
   for (;;)
   {
-    SWL_ON(SWL_GREEN);
+    // SWL_ON(SWL_GREEN);
 
-    for (i = 0x0000; i <= 0xFFFF; i++)
-    {
-      if (SWL_Pushed(SWL_CTR))
-      {
-        RTI_Delay_ms(100);
-        Segs_16H(i, 0);
-        Segs_16H(0xFFFF - i, 1);
+    // for (i = 0x0000; i <= 0xFFFF; i++)
+    // {
+    //   if (SWL_Pushed(SWL_CTR))
+    //   {
+    //     RTI_Delay_ms(100);
+    //     Segs_16H(i, 0);
+    //     Segs_16H(0xFFFF - i, 1);
 
-      }
-    }
+    //   }
+    // }
 
   }                   
 }
