@@ -169,6 +169,24 @@ void Segs_Clear(void)
 //     }
 // }
 
+void Segs_ClearLine(Segs_LineOption line)
+{
+    if (line == Segs_LineBottom) // bottom
+    {
+        Segs_Custom(4, 0b10000000); // clear bits 4-7
+        Segs_Custom(5, 0b10000000);
+        Segs_Custom(6, 0b10000000);
+        Segs_Custom(7, 0b10000000);
+    }
+    else // top
+    {
+        Segs_Custom(0, 0b10000000); // clear bits 0-3
+        Segs_Custom(1, 0b10000000);
+        Segs_Custom(2, 0b10000000);
+        Segs_Custom(3, 0b10000000);
+    }
+}
+
 // show a 16-bit value on the upper or lower display
 /* Params: (value, line) */
 void Segs_16H(unsigned int value, Segs_LineOption line)

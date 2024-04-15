@@ -41,8 +41,16 @@
 /********************************************************************/
 // Global Variables
 /********************************************************************/
-unsigned int i;
-unsigned int z;
+unsigned int j;
+unsigned char z[] =
+{
+  0b11000000, // a top
+  0b10100000, // b top right
+  0b10010000, // c bottom right
+  0b10000001, // d bottom
+  0b10001000, // e bottom left
+  0b10000010, // f top left
+};
 /********************************************************************/
 // Constants
 /********************************************************************/
@@ -53,6 +61,12 @@ unsigned int z;
 void main(void)
 {
   //Any main local variables must be declared here
+  unsigned int i = 0;
+  unsigned int ctrPressed = 0;
+  unsigned int zPosition = 0;
+  unsigned int zAnimationPos = 0;
+  unsigned int loopCount = 0;
+  unsigned int zMovedTotal = 0;
 
   // main entry point
   _DISABLE_COP();
@@ -80,22 +94,57 @@ Segs_Custom(6, 0b10110001);
 
   for (;;)
   {
-    SWL_ON(SWL_GREEN);
-
-    for (i = 0x0000; i <= 0xFFFF; i++)
+    //tier 1
+    if (SWL_Pushed(SWL_CTR))
     {
-      if (SWL_Pushed(SWL_CTR))
-      {
-        RTI_Delay_ms(100);
-        Segs_16H(i, 0);
-        Segs_16H(0xFFFF - i, 1);
+      ctrPressed = 1;
 
-      }
+      Segs_16H(i, 0);
+
+      Segs_16H(0xFFFF - i, 1);
+      i++;
+    }
+
+    //tier 2
     if (ctrPressed)
     {
-      caretAnimation
+      zAnimationPos = (zAnimationPos + 1) % 6;
+
+      Segs_Custom(zPosition, z[zAnimationPos]);
+
+      if (SWL_Pushed(SWL_RIGHT))
+      {
+        loopCount++;
+
+        if (loopCount >= 10)
+        {
+         Segs_ClearLine(Segs_LineTop);
+         zPosition = (zPosition + 1) % 4;
+
+         zMovedTotal++;
+         loopCount = 0; 
+        }
+      }
+      else if (SWL_Pushed(SWL_LEFT))
+      {
+        loopCount++;
+
+        if (loopCount >= 10)
+        {
+         Segs_ClearLine(Segs_LineTop);
+         zPosition--;
+         zPosition = (zPosition % 4 + 4) % 4;
+         zMovedTotal++;
+
+         loopCount = 0; 
+        }
+      }
+
+      Segs_16H(zMovedTotal, 1); 
     }
-    }
+
+    RTI_Delay_ms(100);
+    
 
   }                   
 }
