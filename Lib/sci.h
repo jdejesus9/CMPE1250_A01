@@ -61,7 +61,7 @@ unsigned char sci0_bread(void);
 
 // read a byte, non-blocking
 // returns 1 if byte read, 0 if not
-unsigned char sci0_rxByte(unsigned char * pData);
+unsigned int sci0_rxByte(unsigned char * pData);
 
 void sci0_Init(void);
 // send a byte over SCI

@@ -22,7 +22,7 @@
 #include "sw_led.h"
 #include "pll.h"
 #include "sci.h"
-#include "clock.h"
+//#include "clock.h"
 #include "rti.h"
 
 
@@ -60,22 +60,22 @@ void main(void)
   _DISABLE_COP();
   //EnableInterrupts;
   
-/********************************************************************/c
+/********************************************************************/
   // one-time initializations
 /********************************************************************/
 SWL_Init();
-Clock_Set20MHZ();
+//Clock_Set20MHZ();
 
 PLL_To20MHz();
 
-sci0_InitMath(20000000,19200);
+sci0_InitMath(20000000, 19200);
 
 SCI0CR2 = 0b00001100;
 
 /********************************************************************/
   // main program loop
 /********************************************************************/
-scio_txStr("\x1b[31m \x1b[0;0H Jackelyn De Jesus");
+sci0_txStr("\x1b[31m \x1b[0;0H Jackelyn De Jesus");
 
   for (;;)
   {
