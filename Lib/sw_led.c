@@ -23,7 +23,7 @@ static unsigned int debounceCounter = 0;
 // function implementations
 /////////////////////////////////////////////////////////////////////////////
 // init - must be called to init port PT1AD1
-void SWL_Init (void){
+void SWL_Init(void){
 PT1AD1 = 0b00011111; //initial condition only time I assign a value. In the infinite loop - bitwise operations
 DDR1AD1 = 0b11100000; //1 for output and 0 for input 
 ATD1DIEN1 = 0b00011111; //enable inputs

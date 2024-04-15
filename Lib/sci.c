@@ -46,7 +46,7 @@ void sci0_Init(unsigned long ulBaudRate, int iRDRF_Interrupt){
 
 // // send a byte over SCI
 void sci0_txByte (unsigned char data){
-    while (!(SCI0SR1 & SCI0SR1_RDRF_MASK)); // wait till transmit data register is empty
+    while (!(SCI0SR1 & SCI0SR1_TDRE_MASK)); // wait till transmit data register is empty
     SCI0DRL = data;
 
     // if(SCI0SR1 & SCI0SR1_RDRF_MASK)
