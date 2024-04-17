@@ -143,7 +143,7 @@ Segs_Custom(6, 0b10110001);
       Segs_16H(zMovedTotal, 1); 
     }
 
-    RTI_Delay_ms(100);
+    RTI_Delay_ms(50);
     
 
   }                   
