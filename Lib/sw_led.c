@@ -122,70 +122,70 @@ int SWL_Any (void){
 
 // }
 // //Optional - Using 
-// SwState Sw_Process(SwState *state, SWL_SwitchPos sw_pos)//Process state of a swicth in PT1AD1
-// {
-//     if (SWL_Pushed(sw_pos))
-//     {
-//         //Active
-//         if(*state == Idle)
-//         {
-//             *state = Pressed;
-//         }
-//         else
-//         {
-//             *state = Held;
-//         }
-//     }
-//     else
-//     {
+SwState Sw_Process(SwState *state, SWL_SwitchPos sw_pos)//Process state of a swicth in PT1AD1
+{
+    if (SWL_Pushed(sw_pos))
+    {
+        //Active
+        if(*state == Idle)
+        {
+            *state = Pressed;
+        }
+        else
+        {
+            *state = Held;
+        }
+    }
+    else
+    {
 
-//         //Inactive
-//         if(*state == Held)
-//         {
-//             *state = Released;
-//         }
-//         else
-//         {
-//             *state = Idle;
-//         }
+        //Inactive
+        if(*state == Held)
+        {
+            *state = Released;
+        }
+        else
+        {
+            *state = Idle;
+        }
         
 
-//     }
+    }
 
-//     return *state;
-// } 
+    return *state;
+} 
 // //Process debounced state of a swicth in PT1AD1
-// SwState Sw_ProcessD(SwState *SState, SWL_SwitchPos SPos) //port, SwState, PIN
-// {
-//     if(SWL_PushedDeb(SPos))
-//     {
-//          //Active
-//         if(*SState == Idle)
-//         {
-//             *SState  = Pressed;
-//         }
-//         else
-//         {
-//             *SState  = Held;
-//         }
-//     }
-//         else
-//     {
+SwState Sw_ProcessD(SwState *SState, SWL_SwitchPos SPos) //port, SwState, PIN
+{
+    if(SWL_PushedDeb(SPos))
+    {
+         //Active
+        if(*SState == Idle)
+        {
+            *SState  = Pressed;
+        }
+        else
+        {
+            *SState  = Held;
+        }
+    }
+        else
+    {
 
-//         //Inactive
-//         if(*SState == Held)
-//         {
-//             *SState = Released;
-//         }
-//         else
-//         {
-//             *SState = Idle;
-//         }
+        //Inactive
+        if(*SState == Held)
+        {
+            *SState = Released;
+        }
+        else
+        {
+            *SState = Idle;
+        }
         
 
-//     }
-//     return *SState;
-// }
+    }
+    return *SState;
+}
 
 ////////////////////////////////////////////////////////////////////////////
 // Hidden Helpers (local to implementation only)
