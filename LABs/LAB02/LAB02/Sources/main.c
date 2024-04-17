@@ -36,14 +36,14 @@
 /********************************************************************/
 // Local Prototypes
 /********************************************************************/
-unsigned int count=0;
-unsigned int count2=0;
-unsigned char decimalflag=0;
+// unsigned int count=0;
+// unsigned int count2=0;
+// unsigned char decimalflag=0;
 //SevSegTypedef num=0;
 /********************************************************************/
 // Global Variables
 /********************************************************************/
-
+unsigned int counter = 0;
 /********************************************************************/
 // Constants
 /********************************************************************/
@@ -53,21 +53,30 @@ unsigned char decimalflag=0;
 /********************************************************************/
 void main(void)
 {
+  int i = 4;
+  //int j = 0;
   //Any main local variables must be declared here
+  unsigned int loopCount = 0;
+  //unsigned int dpAnimationPos = 4;
+  //unsigned int dpPos = 0;
+  int oldStateUp = 0;
+  int oldStateDown = 0;
+  int isPressedUp = 0;
+  int isPressedDown = 0;
 
   // main entry point
   _DISABLE_COP();
-  EnableInterrupts;
+  //EnableInterrupts;
   
 /********************************************************************/
   // one-time initializations
 /********************************************************************/
 SWL_Init();
 //Clock_Set20MHZ();
-PLL_To20MHz();
-RTI_Init();
-(void)sci0_Init(57600,1);
-SCI0BD=22;//19200-65
+//PLL_To20MHz();
+//RTI_Init();
+//(void)sci0_Init(57600,1);
+//SCI0BD=22;//19200-65
 
 //PIT_InitChannel(PIT_CH0,PIT_MT1,PIT_IEN);
 //PIT_Set1msDelay(PIT_CH0);
@@ -75,7 +84,7 @@ SCI0BD=22;//19200-65
 
 Segs_Init();
 
-SWL_ON(SWL_YELLOW);
+
 
 /********************************************************************/
   // main program loop
@@ -83,13 +92,64 @@ SWL_ON(SWL_YELLOW);
 
   for (;;)
   {
-    Segs_ClearLine(Segs_LineBottom);  // clear all 4 decimal at the start
+    SWL_TOG(SWL_RED);
+    //Segs_ClearLine(Segs_LineBottom);  // clear all 4 decimal at the start
     
-    // if(PITTF & PIT_CH0){
-    //   count++;  // counter to count the ms
-    // PITTF=PIT_CH0;
-    // }
+    if (SWL_Pushed(SWL_CTR))
+    {
+      counter = 0;
+      Segs_16D(0, 0);  
+    }
+    if (loopCount % 4 == 0)
+    {
+      if (i < 8)
+      {
+        Segs_Custom(i, 0b00000000);
+      i++;
+      }
+      else{
+        Segs_ClearLine(Segs_LineBottom);
+        i = 4;
+      }
+    }
 
+    if (loopCount == 20)
+    {
+      int curStateUp = SWL_Pushed(SWL_UP);
+      int curStateDown = SWL_Pushed(SWL_DOWN);
+
+      if ((curStateUp != oldStateUp) && curStateUp)
+      {
+        isPressedUp = 1;
+        isPressedDown = 0;
+      }
+
+      if ((curStateDown != oldStateDown) && curStateDown)
+      {
+        isPressedDown = 1;
+        isPressedUp = 0;
+      }
+
+      if (isPressedUp > 0)
+      {
+        Segs_16D(counter++, 0);
+      }
+      else if (isPressedDown > 0)
+      {
+        Segs_16H(counter++, 0);
+      }
+
+      oldStateDown = curStateDown;
+      oldStateUp = curStateUp;
+
+      SWL_TOG(SWL_GREEN);
+      loopCount = 0;
+    }
+
+    RTI_Delay_ms(50);
+    loopCount++;
+
+/*
 if(count>=200)
 {
   Segs_Custom(4,0b1001010);    //print the first decimal
@@ -130,6 +190,7 @@ if(count>=1000)
                           SWL_ON(SWL_GREEN);
                           SWL_OFF(SWL_YELLOW);}
    if(SWL_Pushed(SWL_CTR)) {count2=0;}
+   */
   }   
 }
 
