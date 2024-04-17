@@ -20,7 +20,8 @@
 #include "segs.h"
 #include "sci.h"
 #include "pll.h"
-#include "clock.h"
+//#include "clock.h"
+#include "rti.h"
 
 
 //Other system includes or your includes go here
@@ -62,7 +63,8 @@ void main(void)
   // one-time initializations
 /********************************************************************/
 SWL_Init();
-Clock_Set20MHZ();
+//Clock_Set20MHZ();
+PLL_To20MHz();
 RTI_Init();
 (void)sci0_Init(57600,1);
 SCI0BD=22;//19200-65
@@ -90,19 +92,19 @@ SWL_ON(SWL_YELLOW);
 
 if(count>=200)
 {
-  Segs_Custom(4,0);    //print the first decimal
+  Segs_Custom(4,0b1001010);    //print the first decimal
 }
 if(count>=400)
 {
-   Segs_Custom(5,0);   //print the second decimal
+   Segs_Custom(5,0b1001010);   //print the second decimal
 }
 if(count>=600)
 {
-   Segs_Custom(6,0);   //print the third decimal
+   Segs_Custom(6,0b1001010);   //print the third decimal
 }
 if(count>=800)
 {
-   Segs_Custom(7,0);   //print the last decimal
+   Segs_Custom(7,0b1001010);   //print the last decimal
 }
 if(count>=1000)
 {

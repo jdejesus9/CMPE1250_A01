@@ -268,30 +268,30 @@ void Segs_8H(unsigned char Addr, unsigned char Value)
 
 // // show a decimal value on the first or second line of the 7-segs
 // /* Params: (value, line) */
-// void Segs_16D(unsigned int value, Segs_LineOption line)
-// {
-//     byte i = 0;
-//     if (value > 9999)
-//     {
-//         value = 0;
-//     }
-//     if (line == Segs_LineTop)
-//     {
-//         for (i = 0; i < 4; i++)
-//         {
-//             Segs_Normal(3 - i, value % 10, Segs_DP_OFF);
-//             value /= 10;
-//         }
-//     }
-//     else if (line == Segs_LineBottom)
-//     {
-//         for (i = 0; i < 4; i++)
-//         {
-//             Segs_Normal(7 - i, value % 10, Segs_DP_OFF);
-//             value /= 10;
-//         }
-//     }
-// }
+void Segs_16D(unsigned int value, Segs_LineOption line)
+{
+    byte i = 0;
+    if (value > 9999)
+    {
+        value = 0;
+    }
+    if (line == Segs_LineTop)
+    {
+        for (i = 0; i < 4; i++)
+        {
+            Segs_Normal(3 - i, value % 10, Segs_DP_OFF);
+            value /= 10;
+        }
+    }
+    else if (line == Segs_LineBottom)
+    {
+        for (i = 0; i < 4; i++)
+        {
+            Segs_Normal(7 - i, value % 10, Segs_DP_OFF);
+            value /= 10;
+        }
+    }
+}
 
 
 // int Segs_IncrementOnDecimal(unsigned int decimalPlace, unsigned int incrementValue, unsigned int number)
