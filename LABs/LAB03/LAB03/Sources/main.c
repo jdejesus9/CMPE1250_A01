@@ -75,10 +75,7 @@ void main(void)
   // one-time initializations
 /********************************************************************/
 SWL_Init();
-
-
 Segs_Init();
-
 
 num.Nibble.Nibble3=0;
 num.Nibble.Nibble2=0;

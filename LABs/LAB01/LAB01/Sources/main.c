@@ -67,10 +67,10 @@ void main(void)
   // one-time initializations
 /********************************************************************/
 SWL_Init();
-Clock_Set20MHZ();
+// Clock_Set20MHZ();
 RTI_Init();
-(void)sci0_Init(115200,1);
-SCI0BD=11;
+// (void)sci0_Init(115200,1);
+// SCI0BD=11;
 /********************************************************************/
   // main program loop
 /********************************************************************/
@@ -98,9 +98,6 @@ SCI0BD=11;
     if(RedLedDelay<10){RedLedDelay=10;}
   }
 
-
-
-  
   //Part C
    if(flag)
       {     
