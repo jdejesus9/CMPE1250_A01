@@ -1,8 +1,10 @@
 #include <hidef.h>      /* common defines and macros */
 #include "derivative.h" /* derivative-specific definitions */
+#include <stdlib.h>
+#include <stdio.h>
 
 #include "lcd.h"
-#include "pit.h"
+#include "rti.h"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -22,35 +24,35 @@ DDRH = 0xFF;
 //PK2-PK0 -> Control Lines (output)    
 DDRK |= 0b00000111;  
 //1st delay - Delay 40+ [ms]    
-PIT_Sleep(PIT_CH2, 45);    
-//Present Data on PTH   
- PTH  = 0b00111000;  
- //Function Set
- /*             
- ||||||_____(don't care)               
- |||||______(don't care)               
- ||||_______font:  5x8 matrix (LOW)               
- |||________lines: 2 (HIGH)               
- ||_________data:  8-bit (HIGH)               
- |__________function set of commands*/     
- //Write Operation - Instruction Register    
- //PK1->R/W->0  PK2->RS->0      
- PORTK_PK1 = 0;    
- PORTK_PK2 = 0;    
- //PORTK &= ~(PORTA_PA1_MASK | PORTA_PA2_MASK);    
- //Latch Instruction    
- PORTK_PK0 = 1;    
- lcd_MicroDelay;    
- PORTK_PK0 = 0;    
- //2nd Delay, 4.1ms+       
- PIT_Sleep(PIT_CH2, 5);    
- //Latch same Instruction again    
- lcd_Latch;    
- //third Delay  100uS+     
- PIT_Delay_us(PIT_CH3, 150);
- //third Delay  100uS+     
- //Latch same Instruction again    
- lcd_Latch;    
+// PIT_Sleep(PIT_CH2, 45);    
+// //Present Data on PTH   
+//  PTH  = 0b00111000;  
+//  //Function Set
+//  /*             
+//  ||||||_____(don't care)               
+//  |||||______(don't care)               
+//  ||||_______font:  5x8 matrix (LOW)               
+//  |||________lines: 2 (HIGH)               
+//  ||_________data:  8-bit (HIGH)               
+//  |__________function set of commands*/     
+//  //Write Operation - Instruction Register    
+//  //PK1->R/W->0  PK2->RS->0      
+//  PORTK_PK1 = 0;    
+//  PORTK_PK2 = 0;    
+//  //PORTK &= ~(PORTA_PA1_MASK | PORTA_PA2_MASK);    
+//  //Latch Instruction    
+//  PORTK_PK0 = 1;    
+//  lcd_MicroDelay;    
+//  PORTK_PK0 = 0;    
+//  //2nd Delay, 4.1ms+       
+//  PIT_Sleep(PIT_CH2, 5);    
+//  //Latch same Instruction again    
+//  lcd_Latch;    
+//  //third Delay  100uS+     
+//  PIT_Delay_us(PIT_CH3, 150);
+//  //third Delay  100uS+     
+//  //Latch same Instruction again    
+//  lcd_Latch;    
 
 
  
@@ -76,8 +78,6 @@ lcd_Ins(0b00000110);
 /*|||_____Shift:   LOW for no display shift                    
     ||______Inc/Dec: HIGH for increment (to the left)                    
     |_______Entry Mode commands*/            
-
-
 
 }
 
@@ -109,21 +109,21 @@ return address;
 //return busy flag
 
 } //LCD_Inst
-char lcd_GetAddr(void){
-    char address = 0;
-    DDRH = 0x00; //set Port H as Input
+// char lcd_GetAddr(void){
+//     char address = 0;
+//     DDRH = 0x00; //set Port H as Input
 
-    PORTK_PK1 = 1; // Read Operation
-    PORTK_PK0 = 0; //Instruction Register
+//     PORTK_PK1 = 1; // Read Operation
+//     PORTK_PK0 = 0; //Instruction Register
 
-    lcd_Latch;
+//     lcd_Latch;
 
-    address = PTH & 0x7F;// get 7 least significant bits, bit7 busy flag
+//     address = PTH & 0x7F;// get 7 least significant bits, bit7 busy flag
 
-    DDRH = 0xFF; 
+//     DDRH = 0xFF; 
     
-    return address;
-}
+//     return address;
+// }
 void lcd_Data (unsigned char val){
 
     while(lcd_Busy()); //wait for LCD Busy
@@ -158,6 +158,7 @@ void lcd_AddrXY (unsigned char ix, unsigned char iy){
 
     
 }
+
 void lcd_String (char const * straddr){
     int i = 0; // Declare and initialize 'i'
     
