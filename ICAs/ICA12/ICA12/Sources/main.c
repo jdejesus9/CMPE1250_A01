@@ -37,10 +37,7 @@
 /********************************************************************/
 // Global Variables
 /********************************************************************/
-//unsigned char X2 = 4;
-//unsigned char Y2 = 64;
-//unsigned char Z2;
-//char myString[] = "Q";
+
 /********************************************************************/
 // Constants
 /********************************************************************/
@@ -71,11 +68,11 @@ lcd_Data('Q');
   {
     //lcd_Data('Q');
     SWL_ON(SWL_RED);
-    lcd_AddrXY(2,3);
+    lcd_AddrXY(3,3);
     lcd_String("Jackelyn De Jesus");
 
-    lcd_AddrXY(1,2);
-    lcd_String("Hello World");
+    //lcd_AddrXY(1,0);
+    //lcd_String("Hello World");
   }                   
 }
 

@@ -52,7 +52,9 @@ DDRK |= 0b00000111;
 //  PIT_Delay_us(PIT_CH3, 150);
 //  //third Delay  100uS+     
 //  //Latch same Instruction again    
-//  lcd_Latch;    
+//  lcd_Latch;
+
+RTI_Delay_ms(45);
 
 
  
