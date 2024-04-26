@@ -7,7 +7,7 @@
 #include "sw_led.h"
 #include "segs.h"
 #include "clock.h"
-#include "rti.h"
+//#include "rti.h"
 //Other system includes or your includes go here
 #include <stdlib.h>
 //#include <stdio.h>
@@ -59,10 +59,15 @@ void main(void)
     lcd_Init();
     SWL_Init();
     Segs_Init();
-    Clock_Set20MHZ();  // Set clock to 20MHz using PLL
+    //Clock_Set20MHZ();  // Set clock to 20MHz using PLL
 
     //RTI_Delay_ms(50);
     Segs_16D(depositedCharacters, Segs_LineTop);
+    
+    SwState upState;
+  SwState downState;
+  SwState rightState;
+  SwState leftState;
 
 
 /********************************************************************/
@@ -120,7 +125,7 @@ void main(void)
             // Blink the red LED for 50ms
             SWL_ON(SWL_RED);
             //PIT_Sleep(PIT_CH0, 50);
-            RTI_Delay_ms(50);
+            //RTI_Delay_ms(50);
             SWL_OFF(SWL_RED);
         }
 

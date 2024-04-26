@@ -24,6 +24,7 @@
 #include "sci.h"
 #include "clock.h"
 #include "rti.h"
+#include "segs.h"
 
 /********************************************************************/
 //Defines
@@ -49,7 +50,7 @@ unsigned char Check;
 void main(void)
 {
   //Any main local variables must be declared here
-
+int counter =0;
   // main entry point
   _DISABLE_COP();
   EnableInterrupts;
@@ -58,15 +59,11 @@ void main(void)
   // one-time initializations
 /********************************************************************/
 SWL_Init();
-
-//PLL_To20MHz();
-Clock_Set20MHZ();
-
+//Clock_Set20MHZ();
 PLL_To20MHz();
 SCI0BD = 130;
 SCI0CR2 = 0b00001100;
-
-//(void)sci0_Init(9600, 0);
+Segs_Init();
 
 /********************************************************************/
   // main program loop
@@ -88,6 +85,7 @@ SCI0CR2 = 0b00001100;
       if (Vowel(cha)){
         SWL_ON(SWL_GREEN);
         SWL_OFF(SWL_YELLOW);
+        Segs_16H(counter++,0);
       }
       else{
         SWL_ON(SWL_YELLOW);
@@ -103,7 +101,7 @@ SCI0CR2 = 0b00001100;
 /********************************************************************/
 int Vowel(unsigned char receive)
 {
-  if (receive == 'A' || receive == 'E' || receive == 'I' || receive == 'O'  ||receive == 'U')
+  if (receive == 'A' || receive == 'E' || receive == 'I' || receive == 'O'  || receive == 'U' || receive == 'a' || receive == 'e' || receive == 'i' || receive == '0'  ||receive == 'u')
   {
     return 1;
   }

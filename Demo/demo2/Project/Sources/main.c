@@ -92,7 +92,7 @@
 #include "derivative.h" /* derivative-specific definitions */
 
 //Other system includes or your includes go here
-//#include <stdlib.h>
+#include <stdlib.h>
 #include <stdio.h>
 
 #include "segs.h"
@@ -135,7 +135,7 @@ void main(void)
 
   // main entry point
   _DISABLE_COP();
-  //EnableInterrupts;
+  EnableInterrupts;
   
 /********************************************************************/
   // one-time initializations
@@ -151,7 +151,7 @@ lcd_Init();
 
 //write the string
 //Question 1
-lcd_StringXY(20-12, 3, Name);
+lcd_StringXY(30-20, 3, Name);
 Segs_Init(); 
 Segs_16D(counter1, Segs_LineTop); 
 
@@ -206,7 +206,7 @@ lcd_StringXY(0,1,message);
 
 
         //Question 5
-      }
+       }
       if(Sw_ProcessD(&centerState, SWL_CTR) == Pressed)
       {
         swtPressed= 1; 
@@ -242,15 +242,15 @@ lcd_StringXY(0,1,message);
 /********************************************************************/
 // Interrupt Service Routines
 /********************************************************************/
-interrupt VectorNumber_Vpit0 void PIT0_ISR(void)
-{
-        //Question 2
-      if(PITTF_PTF0)
-      {
-        //clear the flag 
-        PITTF = PITTF_PTF0_MASK; 
-        SWL_TOG(SWL_RED); //TOGGLE GREEN 
+// interrupt VectorNumber_Vpit0 void PIT0_ISR(void)
+// {
+//         //Question 2
+//       if(PITTF_PTF0)
+//       {
+//         //clear the flag 
+//         PITTF = PITTF_PTF0_MASK; 
+//         SWL_TOG(SWL_RED); //TOGGLE GREEN 
 
-        ++incCounter1;   
-      }
-}
+//         ++incCounter1;   
+//       }
+// }
