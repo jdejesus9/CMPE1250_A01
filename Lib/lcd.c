@@ -54,7 +54,7 @@ DDRK |= 0b00000111;
 //  //Latch same Instruction again    
 //  lcd_Latch;
 
-RTI_Delay_ms(45);
+//RTI_Delay_ms(45);
 
 
  

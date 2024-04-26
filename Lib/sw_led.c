@@ -76,51 +76,51 @@ int SWL_Any (void){
 //  implementing these functions
 
 // by switch name
-// int SWL_PushedDeb (SWL_SwitchPos pos)  //Debounced version of SWL_Pushed
-// {
+int SWL_PushedDeb (SWL_SwitchPos pos)  //Debounced version of SWL_Pushed
+{
 
-//     unsigned int i;
-//     if (PT1AD1 & pos)
-//     {
-//         i = 1;
-//     }
-//     else
-//     {
-//         i = 0;
-//     }
+    unsigned int i;
+    if (PT1AD1 & pos)
+    {
+        i = 1;
+    }
+    else
+    {
+        i = 0;
+    }
 
-//     /*PIT_Sleep(PIT_CH0, 1);
-//     if (PT1AD1 & pos)
-//     {
-//         i = 1;
-//     }
-//     else{
-//         i = 0;
-//     }
-//     return i; */
+    /*PIT_Sleep(PIT_CH0, 1);
+    if (PT1AD1 & pos)
+    {
+        i = 1;
+    }
+    else{
+        i = 0;
+    }
+    return i; */
 
     
-//     Process the switch state
-//     switch (Sw_Process(&state, pos)) {
-//         case Pressed:
-//             debounceCounter++;
-//             if (debounceCounter >= DEBOUNCE_DELAY) {
-//                 debounceCounter = 0;
-//                 return 1; // Switch is considered pressed after debounce delay
-//             }
-//             break;
+    //Process the switch state
+    switch (Sw_Process(&state, pos)) {
+        case Pressed:
+            debounceCounter++;
+            if (debounceCounter >= DEBOUNCE_DELAY) {
+                debounceCounter = 0;
+                return 1; // Switch is considered pressed after debounce delay
+            }
+            break;
 
-//         case Released:
-//             debounceCounter = 0;
-//             break;
+        case Released:
+            debounceCounter = 0;
+            break;
 
-//         default:
-//             break;
-//     }
+        default:
+            break;
+    }
 
-//     return 0; // Switch is not pressed
+    return 0; // Switch is not pressed
 
-// }
+}
 // //Optional - Using 
 SwState Sw_Process(SwState *state, SWL_SwitchPos sw_pos)//Process state of a swicth in PT1AD1
 {
